@@ -1,5 +1,4 @@
 # general things to ignore
-.DS_*
 *.py[cod]
 build/
 dist/
@@ -11,6 +10,7 @@ dist/
 .cache/
 
 # Mr Developer
+.DS_*
 .idea/
 .ve/
 *.swp
