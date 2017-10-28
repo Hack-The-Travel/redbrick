@@ -21,7 +21,9 @@ setup(
     author_email=about['__author_email__'],
     url=about['__url__'],
     packages=packages,
-    package_data={'': ['LICENSE', 'NOTICE']},
+    package_data={
+        'redbrick': ['LICENSE'],
+    },
     include_package_data=True,
     license=about['__license__'],
     zip_safe=False,
