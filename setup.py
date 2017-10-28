@@ -2,7 +2,8 @@
 from setuptools import setup, Command
 import os
 import sys
-from codecs import open
+if sys.version_info[0] < 3:
+    from io import open
 from shutil import rmtree
 
 
@@ -13,12 +14,12 @@ packages = ['redbrick']
 requires = list()
 
 about = dict()
-with open(os.path.join(here, 'redbrick', '__version__.py'), 'r', 'utf-8') as f:
+with open(os.path.join(here, 'redbrick', '__version__.py'), 'r', encoding='utf-8') as f:
     exec(f.read(), about)
 
-with open('README.rst', 'r', 'utf-8') as f:
+with open('README.rst', 'r', encoding='utf-8') as f:
     readme = f.read()
-with open('HISTORY.rst', 'r', 'utf-8') as f:
+with open('HISTORY.rst', 'r', encoding='utf-8') as f:
     history = f.read()
 
 
