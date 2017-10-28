@@ -3,7 +3,7 @@ import pytest
 import sys
 if sys.version_info[0] < 3:
     from io import open
-from redbrick.utils import dump
+from redbrick.utils import dump_to_file
 
 
 class TestUtils:
@@ -13,8 +13,8 @@ class TestUtils:
             (u'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне.', None),
             (u'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне.', 'cp1251'),
         ))
-    def test_dump(self, text, encoding):
+    def test_dump_to_file(self, text, encoding):
         path_to_dump = '/tmp/dump.txt'
-        dump(path_to_dump, text, encoding=encoding)
+        dump_to_file(path_to_dump, text, encoding=encoding)
         with open(path_to_dump, 'r', encoding=encoding) as fd:
             assert fd.read() == text

@@ -16,7 +16,7 @@ import logging
 log = logging.getLogger(__name__)
 
 
-def dump(path_to_file, text, encoding='utf-8'):
+def dump_to_file(path_to_file, text, encoding='utf-8'):
     f = None
     try:
         f = open(path_to_file, 'w', encoding=encoding)
