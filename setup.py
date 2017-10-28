@@ -35,7 +35,4 @@ setup(
     ],
     packages=packages,
     install_requires=requires,
-    extras_require={
-        'test': ['pytest'],
-    },
 )
