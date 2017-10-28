@@ -1,15 +1,17 @@
-import os
-from codecs import open
+# -*- coding: utf-8 -*-
 from setuptools import setup
+from os import path
+from codecs import open
 
-here = os.path.abspath(os.path.dirname(__file__))
+
+here = path.abspath(path.dirname(__file__))
 
 packages = ['redbrick']
 
 requires = list()
 
 about = dict()
-with open(os.path.join(here, 'redbrick', '__version__.py'), 'r', 'utf-8') as f:
+with open(path.join(here, 'redbrick', '__version__.py'), 'r', 'utf-8') as f:
     exec(f.read(), about)
 
 setup(
