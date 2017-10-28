@@ -13,9 +13,10 @@ class TestUtils:
             ('Lorem Ipsum is simply dummy text of the printing and typesetting industry.', None),
             (u'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне.', None),
             (u'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне.', 'cp1251'),
+            (None, None),
         ))
     def test_dump_to_file(self, text, encoding):
         path_to_dump = '/tmp/dump.txt'
         dump_to_file(path_to_dump, text, encoding=encoding)
-        with open(path_to_dump, 'r', encoding=encoding) as fd:
-            assert fd.read() == text
+        with open(path_to_dump, encoding=encoding) as fd:
+            assert fd.read() == (text or '')
