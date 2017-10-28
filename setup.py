@@ -68,8 +68,10 @@ setup(
         #   4 - Beta
         #   5 - Production/Stable
         'Development Status :: 1 - Planning',
+        'Environment :: Web Environment',
         'Intended Audience :: Developers',
-        'Topic :: Software Development :: API clients',
+        'Topic :: Internet :: WWW/HTTP',
+        'Topic :: Software Development :: Libraries',
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
