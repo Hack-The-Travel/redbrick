@@ -1,8 +1,14 @@
-*.py[co]
+# general things to ignore
 .DS_*
-*.egg
+*~
+*.py[cod]
+build/
+dist/
 *.egg-info/
+*.egg
 .eggs/
+
+# due to using pytest
 .cache/
 
 # Mr Developer
