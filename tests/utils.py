@@ -7,6 +7,7 @@ from redbrick.utils import dump_to_file
 
 
 class TestUtils:
+
     @pytest.mark.parametrize(
         'text, encoding', (
             ('Lorem Ipsum is simply dummy text of the printing and typesetting industry.', None),
