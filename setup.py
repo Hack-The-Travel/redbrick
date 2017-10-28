@@ -14,11 +14,16 @@ about = dict()
 with open(path.join(here, 'redbrick', '__version__.py'), 'r', 'utf-8') as f:
     exec(f.read(), about)
 
+with open('README.rst', 'r', 'utf-8') as f:
+    readme = f.read()
+with open('HISTORY.rst', 'r', 'utf-8') as f:
+    history = f.read()
+
 setup(
     name=about['__title__'],
     version=about['__version__'],
     description=about['__description__'],
-    long_description=about['__description__'],
+    long_description=readme + '\n\n' + history,
     url=about['__url__'],
     author=about['__author__'],
     author_email=about['__author_email__'],
