@@ -1,0 +1,16 @@
+# general things to ignore
+*.py[cod]
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+
+# due to using pytest
+.cache/
+
+# Mr Developer
+.DS_*
+.idea/
+.ve/
+*.swp
