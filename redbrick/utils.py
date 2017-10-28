@@ -20,5 +20,5 @@ def dump_to_file(path_to_file, text, encoding='utf-8'):
     :param text: str, text to dump, unicode is supported
     :param encoding: str, encoding of dump file
     """
-    with open(path_to_file, 'w', encoding=encoding) as f:
+    with open(path_to_file, mode='w', encoding=encoding) as f:
         f.write(unicode(text))

@@ -14,12 +14,12 @@ packages = ['redbrick']
 requires = list()
 
 about = dict()
-with open(os.path.join(here, 'redbrick', '__version__.py'), 'r', encoding='utf-8') as f:
+with open(os.path.join(here, 'redbrick', '__version__.py'), encoding='utf-8') as f:
     exec(f.read(), about)
 
-with open('README.rst', 'r', encoding='utf-8') as f:
+with open('README.rst', encoding='utf-8') as f:
     readme = f.read()
-with open('HISTORY.rst', 'r', encoding='utf-8') as f:
+with open('HISTORY.rst', encoding='utf-8') as f:
     history = f.read()
 
 
