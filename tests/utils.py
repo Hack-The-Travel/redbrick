@@ -19,4 +19,4 @@ class TestUtils:
         path_to_dump = '/tmp/dump.txt'
         dump_to_file(path_to_dump, text, encoding=encoding)
         with open(path_to_dump, encoding=encoding) as fd:
-            assert fd.read() == (text or '')
+            assert fd.read() == (text if text is not None else '')
