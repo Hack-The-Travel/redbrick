@@ -16,10 +16,10 @@ import logging
 log = logging.getLogger(__name__)
 
 
-def dump(path_to_file, text):
+def dump(path_to_file, text, encoding='utf-8'):
     f = None
     try:
-        f = open(path_to_file, 'w')
+        f = open(path_to_file, 'w', encoding=encoding)
         f.write(unicode(text))
     except:
         log.error('Dump failed - {}'.format(path_to_file), exc_info=True)

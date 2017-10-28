@@ -7,12 +7,14 @@ from redbrick.utils import dump
 
 
 class TestUtils:
-    @pytest.mark.parametrize('text', [
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-        u'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне.'
-    ])
-    def test_dump(self, text):
+    @pytest.mark.parametrize(
+        'text, encoding', (
+            ('Lorem Ipsum is simply dummy text of the printing and typesetting industry.', None),
+            (u'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне.', None),
+            (u'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне.', 'cp1251'),
+        ))
+    def test_dump(self, text, encoding):
         path_to_dump = '/tmp/dump.txt'
-        dump(path_to_dump, text)
-        with open(path_to_dump, 'r') as fd:
+        dump(path_to_dump, text, encoding=encoding)
+        with open(path_to_dump, 'r', encoding=encoding) as fd:
             assert fd.read() == text
