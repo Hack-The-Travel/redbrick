@@ -7,10 +7,10 @@ class ClientBrick(object):
     def __init__(self):
 
         #: Content of the request, in unicode
-        self.last_sent
+        self.last_sent = None
 
         #: Content of the response, in unicode
-        self.last_receive
+        self.last_receive = None
 
         #: SSL Verification default
         self.verify = True
