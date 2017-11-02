@@ -16,6 +16,7 @@ requires = [
 ]
 test_requirements = [
     'pytest>=3.2.0',
+    'pytest-httpbin==0.0.7',
 ]
 
 about = dict()
