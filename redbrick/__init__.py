@@ -5,6 +5,7 @@ from .__version__ import (
 )
 
 from . import utils
+from .core import ClientBrick
 
 # Set default logging handler to avoid "No handler found" warnings.
 import logging
