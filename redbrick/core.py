@@ -50,4 +50,5 @@ class ClientBrick(object):
         :param url: str, URL to send.
         """
         r = requests.request(method, url, verify=self.verify)
+        r.raise_for_status()
         self.last_receive = r.text
