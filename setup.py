@@ -11,7 +11,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 packages = ['redbrick']
 
-requires = ['requests>=2.18.0,<2.19.0']
+requires = ['requests>=2.18.0']
 
 about = dict()
 with open(os.path.join(here, 'redbrick', '__version__.py'), encoding='utf-8') as f:
