@@ -37,8 +37,8 @@ class ClientBrick(object):
             )
             try:
                 dump_to_file(path_to_file, text, encoding=encoding)
-            except Exception as e:
-                log.error('Dump error - {}'.format(path_to_file), exc_info=True)
+            except IOError as e:
+                log.error('Dump error: {}'.format(e), exc_info=True)
 
     def send(self, method, url):
         """Sends request.
