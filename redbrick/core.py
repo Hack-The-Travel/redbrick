@@ -29,6 +29,7 @@ class ClientBrick(object):
 
         :param encoding: (optional) str, encoding of dump file.
         """
+        dumps = list()
         for text, action in [(self.last_sent, 'RQ'), (self.last_receive, 'RS')]:
             now = datetime.now().strftime('%Y-%m-%dT%H%M%S.%f')
             path_to_file = os.path.join(
@@ -37,8 +38,10 @@ class ClientBrick(object):
             )
             try:
                 dump_to_file(path_to_file, text, encoding=encoding)
+                dumps.append(path_to_file)
             except IOError as e:
                 log.error('Dump error: {}'.format(e), exc_info=True)
+        return dumps
 
     def send(self, method, url):
         """Sends request.
@@ -47,4 +50,4 @@ class ClientBrick(object):
         :param url: str, URL to send.
         """
         r = requests.request(method, url, verify=self.verify)
-        print r.text
+        self.last_receive = r.text
