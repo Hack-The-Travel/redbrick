@@ -6,6 +6,8 @@ def xstr(s):
     :return: empty string instead of None or a given string.
     :rtype: basestring
     """
+    if s is None:
+        return ''
     if not isinstance(s, basestring):
         raise Exception
-    return s if s is not None else ''
+    return s
