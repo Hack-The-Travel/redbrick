@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 import logging
 import requests
+from requests.auth import HTTPBasicAuth
 from .utils import dump_to_file
 
 log = logging.getLogger(__name__)
@@ -45,7 +46,7 @@ class ClientBrick(object):
         return dumps
 
     def request(self, method, url,
-             headers=None, data=None, service_name=None):
+             headers=None, data=None, service_name=None, auth=None):
         """Sends request.
 
         :param method: str, HTTP method to use.
@@ -53,10 +54,13 @@ class ClientBrick(object):
         :param headers: dict, dictionary of headers to send.
         :param data: str, the body of request.
         :param service_name: str, name of called service, is used for dumping.
+        :param auth: tuple, (user, pass)
         """
         service_name = '' if service_name is None else service_name
+        if auth is not None:
+            auth = HTTPBasicAuth(*auth)
 
-        r = requests.request(method, url, data=data, headers=headers, verify=self.verify)
+        r = requests.request(method, url, data=data, headers=headers, auth=auth, verify=self.verify)
         self.last_sent = data
         self.last_receive = r.text
         # TODO: provided format, now used constant 'xml'
