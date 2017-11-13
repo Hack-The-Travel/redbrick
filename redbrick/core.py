@@ -24,8 +24,10 @@ class ClientBrick(object):
         self.log_dir = '/tmp'
 
     def dump(self, service, fmt, encoding='utf-8'):
-        """Dumps content of last request and response.
+        """Dumps text of last request and response.
 
+        :param service: str, name of called service, part of dumped files name.
+        :param fmt: str, format of request/response text, extension of dumped files.
         :param encoding: (optional) str, encoding of dump file.
         """
         dumps = list()
