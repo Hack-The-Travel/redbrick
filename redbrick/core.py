@@ -43,12 +43,18 @@ class ClientBrick(object):
                 log.error('Dump error: {}'.format(e), exc_info=True)
         return dumps
 
-    def send(self, method, url):
+    def send(self, method, url,
+            headers=None, data=None, service_name=None):
         """Sends request.
 
         :param method: str, HTTP method to use.
         :param url: str, URL to send.
         """
-        r = requests.request(method, url, verify=self.verify)
-        r.raise_for_status()
+        service_name = '' if service_name is None else service_name
+
+        r = requests.request(method, url, data=data, headers=headers, verify=self.verify)
+        self.last_sent = data
         self.last_receive = r.text
+        # TODO: provided format, now used constant 'xml'
+        self.dump(service_name, 'xml')
+        r.raise_for_status()
