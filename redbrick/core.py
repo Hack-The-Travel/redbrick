@@ -45,11 +45,14 @@ class ClientBrick(object):
         return dumps
 
     def send(self, method, url,
-            headers=None, data=None, service_name=None):
+             headers=None, data=None, service_name=None):
         """Sends request.
 
         :param method: str, HTTP method to use.
         :param url: str, URL to send.
+        :param headers: dict, dictionary of headers to send.
+        :param data: str, the body of request.
+        :param service_name: str, name of called service, is used for dumping.
         """
         service_name = '' if service_name is None else service_name
 
