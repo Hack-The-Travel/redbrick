@@ -8,7 +8,7 @@ class TestCore:
 
     def test_dump(self, httpbin):
         client = ClientBrick()
-        client.send('GET', httpbin.url + '/xml')
+        client.request('GET', httpbin.url + '/xml')
         dumps = client.dump('test', 'xml')
         with open(dumps[0]) as fd:
             assert fd.read() == xstr(client.last_sent)
