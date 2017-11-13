@@ -44,7 +44,7 @@ class ClientBrick(object):
                 log.error('Dump error: {}'.format(e), exc_info=True)
         return dumps
 
-    def send(self, method, url,
+    def request(self, method, url,
              headers=None, data=None, service_name=None):
         """Sends request.
 
