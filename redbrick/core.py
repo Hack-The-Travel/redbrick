@@ -23,11 +23,11 @@ class ClientBrick(object):
         #: Path to log files
         self.log_dir = '/tmp'
 
-    def dump(self, service, fmt, encoding='utf-8'):
+    def dump(self, service, message_format, encoding='utf-8'):
         """Dumps text of last request and response.
 
         :param service: str, name of called service, part of dumped files name.
-        :param fmt: str, format of request/response text, extension of dumped files.
+        :param message_format: str, format of request/response text, extension of dumped files.
         :param encoding: (optional) str, encoding of dump file.
         """
         dumps = list()
@@ -35,7 +35,7 @@ class ClientBrick(object):
             now = datetime.now().strftime('%Y-%m-%dT%H%M%S.%f')
             path_to_file = os.path.join(
                 self.log_dir,
-                '{dt}_{srv}_{act}.{fmt}'.format(dt=now, srv=service, act=action, fmt=fmt)
+                '{dt}_{srv}_{act}.{fmt}'.format(dt=now, srv=service, act=action, fmt=message_format)
             )
             try:
                 dump_to_file(path_to_file, text, encoding=encoding)
