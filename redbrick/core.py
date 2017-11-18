@@ -11,7 +11,10 @@ log = logging.getLogger(__name__)
 
 class ClientBrick(object):
 
-    def __init__(self):
+    def __init__(self, auth=None):
+        #: Credentials tuple, (user, password)
+        self.auth = auth
+
         #: Content of the request, in unicode
         self.last_sent = None
 
@@ -46,7 +49,7 @@ class ClientBrick(object):
         return dumps
 
     def request(self, method, url,
-             headers=None, data=None, service_name=None, auth=None):
+                headers=None, data=None, service_name=None):
         """Sends request.
 
         :param method: str, HTTP method to use.
@@ -54,13 +57,16 @@ class ClientBrick(object):
         :param headers: dict, dictionary of headers to send.
         :param data: str, the body of request.
         :param service_name: str, name of called service, is used for dumping.
-        :param auth: tuple, (user, pass)
         """
         service_name = '' if service_name is None else service_name
-        if auth is not None:
-            auth = HTTPBasicAuth(*auth)
 
-        r = requests.request(method, url, data=data, headers=headers, auth=auth, verify=self.verify)
+        verify = self.verify
+
+        auth = None
+        if self.auth is not None:
+            auth = HTTPBasicAuth(*self.auth)
+
+        r = requests.request(method, url, data=data, headers=headers, auth=auth, verify=verify)
         self.last_sent = data
         self.last_receive = r.text
         # TODO: provided format, now used constant 'xml'

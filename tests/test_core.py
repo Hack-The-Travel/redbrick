@@ -19,9 +19,10 @@ class TestCore:
     def test_request_basic_auth(self, httpbin):
         auth = ('user', 'password')
         url = httpbin.url + '/basic-auth/user/password'
-        client = ClientBrick()
+        client_without_auth = ClientBrick()
         with pytest.raises(IOError):
-            client.request('GET', url)
-        client.request('GET', url, auth=auth)
-        response = json.loads(client.last_receive)
+            client_without_auth.request('GET', url)
+        client_with_auth = ClientBrick(auth=auth)
+        client_with_auth.request('GET', url)
+        response = json.loads(client_with_auth.last_receive)
         assert response['authenticated']
