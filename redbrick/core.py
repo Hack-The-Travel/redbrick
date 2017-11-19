@@ -22,7 +22,7 @@ class ClientBrick(object):
         self.last_receive = None
 
         #: SSL Verification default
-        self.verify = True
+        self.ssl_verify = True
 
         #: Path to log files
         self.log_dir = '/tmp'
@@ -60,13 +60,13 @@ class ClientBrick(object):
         """
         service_name = '' if service_name is None else service_name
 
-        verify = self.verify
+        ssl_verify = self.ssl_verify
 
         auth = None
         if self.auth is not None:
             auth = HTTPBasicAuth(*self.auth)
 
-        r = requests.request(method, url, data=data, headers=headers, auth=auth, verify=verify)
+        r = requests.request(method, url, data=data, headers=headers, auth=auth, verify=ssl_verify)
         self.last_sent = data
         self.last_receive = r.text
         # TODO: provided format, now used constant 'xml'
