@@ -19,7 +19,7 @@ class ClientBrick(object):
         self.last_sent = None
 
         #: Content of the response, in unicode
-        self.last_receive = None
+        self.last_received = None
 
         #: SSL Verification default
         self.ssl_verify = True
@@ -35,7 +35,7 @@ class ClientBrick(object):
         :param encoding: (optional) str, encoding of dump file.
         """
         dumps = list()
-        for text, action in [(self.last_sent, 'RQ'), (self.last_receive, 'RS')]:
+        for text, action in [(self.last_sent, 'RQ'), (self.last_received, 'RS')]:
             now = datetime.now().strftime('%Y-%m-%dT%H%M%S.%f')
             path_to_file = os.path.join(
                 self.log_dir,
@@ -68,7 +68,7 @@ class ClientBrick(object):
 
         r = requests.request(method, url, data=data, headers=headers, auth=auth, verify=ssl_verify)
         self.last_sent = data
-        self.last_receive = r.text
+        self.last_received = r.content
         # TODO: provided format, now used constant 'xml'
         self.dump(service_name, 'xml')
         r.raise_for_status()
