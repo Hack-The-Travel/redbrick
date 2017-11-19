@@ -68,7 +68,7 @@ class ClientBrick(object):
 
         r = requests.request(method, url, data=data, headers=headers, auth=auth, verify=ssl_verify)
         self.last_sent = data
-        self.last_received = r.text
+        self.last_received = r.content
         # TODO: provided format, now used constant 'xml'
         self.dump(service_name, 'xml')
         r.raise_for_status()
