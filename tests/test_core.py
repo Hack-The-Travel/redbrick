@@ -18,6 +18,7 @@ class TestCore:
                 assert fd.read() == xstr(client.last_received)
 
     def test_dump_timezone(self, httpbin):
+        """Checks timezone applying for dumping."""
         dt_utc = datetime.utcnow()
         client_paris = ClientBrick(timezone='Europe/Paris')  # UTC+1
         url = httpbin.url + '/get'
