@@ -1,3 +1,4 @@
-pytest>=3.2.0
 requests>=2.18.0
+pytz>=2014.3
+pytest>=3.2.0
 pytest-httpbin==0.0.7
