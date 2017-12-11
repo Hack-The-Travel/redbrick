@@ -48,9 +48,9 @@ class ClientBrick(object):
             )
             try:
                 dump_to_file(path_to_file, text, encoding=encoding)
-                dumps.append(path_to_file)
             except IOError as e:
                 log.error('Dump error: {}'.format(e), exc_info=True)
+            dumps.append(path_to_file)
         return dumps
 
     def request(self, method, url,
