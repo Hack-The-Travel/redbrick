@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 from datetime import datetime
+import pytz
 import logging
 import requests
 from requests.auth import HTTPBasicAuth
@@ -35,8 +36,9 @@ class ClientBrick(object):
         :param encoding: (optional) str, encoding of dump file.
         """
         dumps = list()
+        tz = 'Europe/Moscow'
+        now = datetime.now(pytz.timezone(tz)).strftime('%Y-%m-%dT%H%M%S.%f')
         for text, action in [(self.last_sent, 'RQ'), (self.last_received, 'RS')]:
-            now = datetime.now().strftime('%Y-%m-%dT%H%M%S.%f')
             path_to_file = os.path.join(
                 self.log_dir,
                 '{dt}_{srv}_{act}.{fmt}'.format(dt=now, srv=service, act=action, fmt=message_format)
