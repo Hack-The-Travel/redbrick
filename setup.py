@@ -13,6 +13,7 @@ packages = ['redbrick']
 
 requires = [
     'requests>=2.18.0',
+    'pytz>=2014.3',
 ]
 test_requirements = [
     'pytest>=3.2.0',
