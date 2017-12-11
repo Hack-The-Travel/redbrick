@@ -22,9 +22,10 @@ class TestCore:
         client_paris = ClientBrick(timezone='Europe/Paris')  # UTC+1
         url = httpbin.url + '/get'
         client_paris.request('GET', url)
-        dumps_paris = client_paris.dump('tz', 'json')
-        fmt = '/'.join([client_paris.log_dir, '%Y-%m-%dT%H%M%S'])
-        dt_paris = datetime.strptime(dumps_paris[0][0:len(fmt)+1], fmt)
+        dumps_paris = client_paris.dump('timezone', 'json')
+        fmt = '/'.join([client_paris.log_dir, '%Y-%m-%dT%H%M%S.%f'])
+        cut = len('_timezone_RQ.json')
+        dt_paris = datetime.strptime(dumps_paris[0][:-cut], fmt)
         delta = dt_paris - dt_utc
         assert int(round(delta.total_seconds()/60/60)) == 1
 
