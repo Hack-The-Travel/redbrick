@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 import json
+from datetime import datetime, timedelta
 from redbrick import ClientBrick
 from .utils import xstr
 
@@ -15,6 +16,17 @@ class TestCore:
                 assert fd.read() == xstr(client.last_sent)
             with open(dumps[1]) as fd:
                 assert fd.read() == xstr(client.last_received)
+
+    def test_dump_timezone(self, httpbin):
+        dt_utc = datetime.utcnow()
+        client_paris = ClientBrick(timezone='Europe/Paris')  # UTC+1
+        url = httpbin.url + '/get'
+        client_paris.request('GET', url)
+        dumps_paris = client_paris.dump('tz', 'json')
+        fmt = '/'.join([client_paris.log_dir, '%Y-%m-%dT%H%M%S'])
+        dt_paris = datetime.strptime(dumps_paris[0][0:len(fmt)+1], fmt)
+        delta = dt_paris - dt_utc
+        assert int(round(delta.total_seconds()/60/60)) == 1
 
     def test_request_basic_auth(self, httpbin):
         auth = ('user', 'password')
