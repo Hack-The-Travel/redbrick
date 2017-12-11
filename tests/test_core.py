@@ -29,6 +29,16 @@ class TestCore:
         delta = dt_paris - dt_utc
         assert int(round(delta.total_seconds()/60/60)) == 1
 
+    def test_dump_datetime(self, httpbin):
+        """Checks that RQ and RS dumps have the same timestamp."""
+        client = ClientBrick(timezone='Europe/Moscow')
+        url = httpbin.url + '/get'
+        client.request('GET', url)
+        dumps = client.dump('datetime', 'json')
+        fmt = '/'.join([client.log_dir, '%Y-%m-%dT%H%M%S.%f'])
+        cut = len('_datetime_RQ.json')
+        assert datetime.strptime(dumps[0][:-cut], fmt) == datetime.strptime(dumps[1][:-cut], fmt)
+
     def test_request_basic_auth(self, httpbin):
         auth = ('user', 'password')
         url = httpbin.url + '/basic-auth/user/password'
