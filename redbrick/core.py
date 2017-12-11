@@ -29,8 +29,10 @@ class ClientBrick(object):
         #: Path to log files
         self.log_dir = '/tmp'
 
-        #: time zone, element of pytz.all_timezones list
-        self.timezone = 'UTC' if timezone not in pytz.all_timezones else timezone
+        #: Time zone
+        if timezone not in pytz.all_timezones:
+            timezone = 'UTC'
+        self.timezone = pytz.timezone(timezone)
 
     def dump(self, service, message_format, encoding='utf-8'):
         """Dumps text of last request and response.
@@ -40,7 +42,7 @@ class ClientBrick(object):
         :param encoding: (optional) str, encoding of dump file.
         """
         dumps = list()
-        now = datetime.now(pytz.timezone(self.timezone)).strftime('%Y-%m-%dT%H%M%S.%f')
+        now = datetime.now(self.timezone).strftime('%Y-%m-%dT%H%M%S.%f')
         for text, action in [(self.last_sent, 'RQ'), (self.last_received, 'RS')]:
             path_to_file = os.path.join(
                 self.log_dir,
