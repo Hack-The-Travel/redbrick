@@ -32,7 +32,7 @@ class TestCore:
 
     def test_dump_datetime(self, httpbin):
         """Checks that RQ and RS dumps have the same timestamp."""
-        client = ClientBrick(timezone='Europe/Moscow')
+        client = ClientBrick()
         url = httpbin.url + '/get'
         client.request('GET', url)
         dumps = client.dump('datetime', 'json')
