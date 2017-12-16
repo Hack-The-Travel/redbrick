@@ -13,21 +13,15 @@ log = logging.getLogger(__name__)
 class ClientBrick(object):
 
     def __init__(self,
-                 auth=None, timezone=None, datetime_format=None):
+                 auth=None, timezone=None, datetime_format=None, dumps_dir=None):
         #: Credentials tuple, (user, password)
         self.auth = auth
-
-        #: Content of the request, in unicode
-        self.last_sent = None
-
-        #: Content of the response, in unicode
-        self.last_received = None
 
         #: SSL Verification default
         self.ssl_verify = True
 
         #: Path to log files
-        self.log_dir = '/tmp'
+        self.dumps_dir = '/tmp' if dumps_dir is None else dumps_dir
 
         #: Time zone
         if timezone not in pytz.all_timezones:
@@ -36,6 +30,12 @@ class ClientBrick(object):
 
         #: Datetime format
         self.datetime_format = '%Y%m%dT%H%M%S.%f' if datetime_format is None else datetime_format
+
+        #: Content of the request, in unicode
+        self.last_sent = None
+
+        #: Content of the response, in unicode
+        self.last_received = None
 
     def dump(self, service, message_format, encoding='utf-8'):
         """Dumps text of last request and response.
@@ -48,7 +48,7 @@ class ClientBrick(object):
         now = datetime.now(self.timezone).strftime(self.datetime_format)
         for text, action in [(self.last_sent, 'RQ'), (self.last_received, 'RS')]:
             path_to_file = os.path.join(
-                self.log_dir,
+                self.dumps_dir,
                 '{dt}_{srv}_{act}.{fmt}'.format(dt=now, srv=service, act=action, fmt=message_format)
             )
             try:
