@@ -26,7 +26,7 @@ class TestCore:
         url = httpbin.url + '/get'
         client_paris.request('GET', url)
         dumps_paris = client_paris.dump('timezone', 'json')
-        fmt = '/'.join([client_paris.log_dir, DATETIME_FORMAT])
+        fmt = '/'.join([client_paris.dumps_dir, DATETIME_FORMAT])
         cut = len('_timezone_RQ.json')
         dt_paris = datetime.strptime(dumps_paris[0][:-cut], fmt)
         delta = dt_paris - dt_utc
@@ -38,7 +38,7 @@ class TestCore:
         url = httpbin.url + '/get'
         client.request('GET', url)
         dumps = client.dump('datetime', 'json')
-        fmt = '/'.join([client.log_dir, DATETIME_FORMAT])
+        fmt = '/'.join([client.dumps_dir, DATETIME_FORMAT])
         cut = len('_datetime_RQ.json')
         assert datetime.strptime(dumps[0][:-cut], fmt) == datetime.strptime(dumps[1][:-cut], fmt)
 

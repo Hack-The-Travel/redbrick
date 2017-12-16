@@ -13,7 +13,7 @@ log = logging.getLogger(__name__)
 class ClientBrick(object):
 
     def __init__(self,
-                 auth=None, timezone=None, datetime_format=None):
+                 auth=None, timezone=None, datetime_format=None, dumps_dir=None):
         #: Credentials tuple, (user, password)
         self.auth = auth
 
@@ -27,7 +27,7 @@ class ClientBrick(object):
         self.ssl_verify = True
 
         #: Path to log files
-        self.log_dir = '/tmp'
+        self.dumps_dir = '/tmp' if dumps_dir is None else dumps_dir
 
         #: Time zone
         if timezone not in pytz.all_timezones:
@@ -48,7 +48,7 @@ class ClientBrick(object):
         now = datetime.now(self.timezone).strftime(self.datetime_format)
         for text, action in [(self.last_sent, 'RQ'), (self.last_received, 'RS')]:
             path_to_file = os.path.join(
-                self.log_dir,
+                self.dumps_dir,
                 '{dt}_{srv}_{act}.{fmt}'.format(dt=now, srv=service, act=action, fmt=message_format)
             )
             try:
