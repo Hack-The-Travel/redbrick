@@ -17,12 +17,6 @@ class ClientBrick(object):
         #: Credentials tuple, (user, password)
         self.auth = auth
 
-        #: Content of the request, in unicode
-        self.last_sent = None
-
-        #: Content of the response, in unicode
-        self.last_received = None
-
         #: SSL Verification default
         self.ssl_verify = True
 
@@ -36,6 +30,12 @@ class ClientBrick(object):
 
         #: Datetime format
         self.datetime_format = '%Y%m%dT%H%M%S.%f' if datetime_format is None else datetime_format
+
+        #: Content of the request, in unicode
+        self.last_sent = None
+
+        #: Content of the response, in unicode
+        self.last_received = None
 
     def dump(self, service, message_format, encoding='utf-8'):
         """Dumps text of last request and response.
