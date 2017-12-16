@@ -5,6 +5,8 @@ from datetime import datetime, timedelta
 from redbrick import ClientBrick
 from .utils import xstr
 
+DATETIME_FORMAT = '%Y%m%dT%H%M%S.%f'
+
 
 class TestCore:
     def test_dump(self, httpbin):
@@ -20,11 +22,11 @@ class TestCore:
     def test_dump_timezone(self, httpbin):
         """Checks timezone applying for dumping."""
         dt_utc = datetime.utcnow()
-        client_paris = ClientBrick(timezone='Europe/Paris')  # UTC+1
+        client_paris = ClientBrick(timezone='Europe/Paris', datetime_format=DATETIME_FORMAT)  # UTC+1
         url = httpbin.url + '/get'
         client_paris.request('GET', url)
         dumps_paris = client_paris.dump('timezone', 'json')
-        fmt = '/'.join([client_paris.log_dir, '%Y-%m-%dT%H%M%S.%f'])
+        fmt = '/'.join([client_paris.log_dir, DATETIME_FORMAT])
         cut = len('_timezone_RQ.json')
         dt_paris = datetime.strptime(dumps_paris[0][:-cut], fmt)
         delta = dt_paris - dt_utc
@@ -32,11 +34,11 @@ class TestCore:
 
     def test_dump_datetime(self, httpbin):
         """Checks that RQ and RS dumps have the same timestamp."""
-        client = ClientBrick()
+        client = ClientBrick(datetime_format=DATETIME_FORMAT)
         url = httpbin.url + '/get'
         client.request('GET', url)
         dumps = client.dump('datetime', 'json')
-        fmt = '/'.join([client.log_dir, '%Y-%m-%dT%H%M%S.%f'])
+        fmt = '/'.join([client.log_dir, DATETIME_FORMAT])
         cut = len('_datetime_RQ.json')
         assert datetime.strptime(dumps[0][:-cut], fmt) == datetime.strptime(dumps[1][:-cut], fmt)
 
